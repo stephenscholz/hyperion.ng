@@ -1,0 +1,43 @@
+# Git
+.git
+.gitignore
+.gitmodules
+
+# Build artifacts
+build/
+deploy/
+
+# Documentation
+doc/
+*.md
+!README.md
+
+# CI/CD
+.github/
+
+# Development files
+.vscode/
+.vs/
+.editorconfig
+
+# Scripts and binaries
+bin/
+!bin/scripts/
+
+# Dependencies
+dependencies/
+
+# Test files
+test/
+
+# Assets not needed for runtime
+assets/firmware/
+
+# Cache and temp files
+.cache
+*.tmp
+
+# Docker files (not needed in build context)
+Dockerfile*
+docker-compose.yml
+.dockerignore

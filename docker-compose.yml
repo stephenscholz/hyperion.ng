@@ -1,0 +1,35 @@
+version: '3.8'
+
+# Basic Hyperion setup - uncomment extra stuff below if you need it
+
+services:
+  hyperion:
+    # Change this if you're using a fork
+    image: ghcr.io/hyperion-project/hyperion:latest
+    restart: unless-stopped
+
+    ports:
+      - "8090:8090"        # Web interface
+      - "19400:19400/udp"  # LED data from grabbers
+
+    volumes:
+      - ./config:/home/hyperion/.hyperion  # Your settings
+
+    # Uncomment below if you need hardware access (USB/serial LEDs)
+    # volumes:
+    #   - /dev:/dev:rw
+
+    # Uncomment for Raspberry Pi
+    # devices:
+    #   - /dev/vchiq:/dev/vchiq
+    #   - /dev/vc-mem:/dev/vc-mem
+
+    # Uncomment if you need full system access
+    # privileged: true
+
+    # Uncomment to set your local time
+    # environment:
+    #   - TZ=Europe/Berlin
+
+    # Uncomment to name your container
+    # container_name: hyperion

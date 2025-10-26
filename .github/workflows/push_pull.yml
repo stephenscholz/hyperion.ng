@@ -54,11 +54,17 @@ jobs:
       pull_request_number: ${{ github.event.pull_request.number }}
       publish: ${{ startsWith(github.event.ref, 'refs/tags') }}
 
+  # Build Docker Image
+  docker:
+    name: Docker
+    uses: ./.github/workflows/docker.yml
+    secrets: inherit
+
   # Publish to GitHub
   github_publish:
     name: 🚀 Publish to GitHub
     if: startsWith(github.event.ref, 'refs/tags')
-    needs: [linux, macos, windows]
+    needs: [linux, macos, windows, docker]
     runs-on: ubuntu-latest
     steps:
       - name: ⬇ Checkout

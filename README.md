@@ -66,6 +66,56 @@ See [CompileHowto.md](doc/development/CompileHowto.md).
 ## Installation
 See [Getting Started and Installation](https://docs.hyperion-project.org/user/gettingstarted/Overview.html).
 
+## Docker
+
+Docker images are built automatically and available on [GitHub Container Registry](https://github.com/hyperion-project/hyperion.ng/pkgs/container/hyperion).
+
+### Quick Start
+```bash
+mkdir config
+docker-compose up -d
+```
+
+That's it! The web interface will be at http://localhost:8090.
+
+### Manual Run
+```bash
+mkdir config
+docker run -d \
+  --name hyperion \
+  -p 8090:8090 \
+  -p 19400:19400/udp \
+  -v $(pwd)/config:/home/hyperion/.hyperion \
+  ghcr.io/hyperion-project/hyperion:latest
+```
+**Note:** If using a fork, replace `hyperion-project` with your GitHub username in the image name.
+
+For stable releases, versioned tags are also available:
+```bash
+# Use a specific version instead of latest
+docker run -d \
+  --name hyperion \
+  -p 8090:8090 \
+  -p 19400:19400/udp \
+  -v $(pwd)/config:/home/hyperion/.hyperion \
+  ghcr.io/hyperion-project/hyperion:2.0.16
+```
+**Note:** For forks, use `ghcr.io/your-username/hyperion:version`
+
+### Security
+Runs as non-root user for safety. Only needs root during build to install packages.
+
+### What's Included
+Full Hyperion with all features:
+- LED control (USB, serial, network)
+- Screen grabbing
+- TV control (CEC)
+- Web interface
+- Effects engine
+
+### Advanced Setup
+Need hardware access or running on Raspberry Pi? Uncomment the optional parts in `docker-compose.yml`.
+
 ## Download
 GitHub Releases are available on the [Hyperion release page](https://github.com/hyperion-project/hyperion.ng/releases).
 
