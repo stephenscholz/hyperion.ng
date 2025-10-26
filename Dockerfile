@@ -53,8 +53,11 @@ RUN apt-get update && apt-get install -y \
 # Copy Hyperion source code from build context
 COPY . /hyperion
 
-# Build Hyperion
+# Initialize git submodules
 WORKDIR /hyperion
+RUN git submodule update --init --recursive
+
+# Build Hyperion
 RUN mkdir build && cd build && \
     cmake -G Ninja -DCMAKE_BUILD_TYPE=Release .. && \
     cmake --build . -- -j$(nproc)
