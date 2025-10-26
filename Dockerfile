@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y \
     qt6-base-dev \
     libqt6serialport6-dev \
     libqt6websockets6-dev \
+    libqt6sql6-dev \
     libxkbcommon-dev \
     libvulkan-dev \
     libgl1-mesa-dev \
@@ -46,13 +47,11 @@ COPY . /hyperion
 
 # Build Hyperion (submodules already initialized by workflow)
 WORKDIR /hyperion
-RUN cmake -B build -G Ninja \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_C_COMPILER=/usr/bin/gcc \
-    -DCMAKE_CXX_COMPILER=/usr/bin/g++ \
-    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON && \
-    cmake --build build -j$(nproc) && \
-    cmake --build build --target install/strip
+RUN cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+
+RUN cmake --build build -j$(nproc)
+
+RUN cmake --build build --target install/strip
 
 # Clean up build dependencies to reduce image size
 RUN apt-get purge -y \

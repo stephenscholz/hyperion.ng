@@ -27,9 +27,6 @@ bin/
 # Dependencies
 dependencies/
 
-# Test files
-test/
-
 # Assets not needed for runtime
 assets/firmware/
 
