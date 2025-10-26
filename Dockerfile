@@ -47,9 +47,8 @@ COPY . /hyperion
 # Build Hyperion (submodules already initialized by workflow)
 WORKDIR /hyperion
 RUN mkdir build && cd build && \
-    cmake -G Ninja -DCMAKE_BUILD_TYPE=Release .. && \
-    cmake --build . -- -j$(nproc) && \
-    cmake --build . --target install/strip
+    cmake --preset linux-release && \
+    cmake --build --preset linux-release --target install/strip
 
 # Clean up build dependencies to reduce image size
 RUN apt-get purge -y \
